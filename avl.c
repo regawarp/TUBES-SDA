@@ -1,24 +1,19 @@
 // C program to insert a node in AVL tree
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+#include "strukturdata.h"
  
-// An AVL tree node
-struct Node
-{
-    int key;
-    struct Node *left;
-    struct Node *right;
-    int height;
-};
  
 // A utility function to get maximum of two integers
 int max(int a, int b);
  
 // A utility function to get the height of the tree
-int height(struct Node *N)
+int height(NodeTree *N)
 {
-    if (N == NULL)
+    if (N == NULL){
         return 0;
+    }
     return N->height;
 }
  
@@ -30,31 +25,39 @@ int max(int a, int b)
  
 /* Helper function that allocates a new node with the given key and
     NULL left and right pointers. */
-struct Node* newNode(int key)
+NodeTree* newNode(char* kata)
 {
-    struct Node* node = (struct Node*)
-                        malloc(sizeof(struct Node));
-    node->key   = key;
-    node->left   = NULL;
-    node->right  = NULL;
-    node->height = 1;  // new node is initially added at leaf
-    return(node);
+    NodeTree* node = (NodeTree*)malloc(sizeof(NodeTree));
+    strcpy(node->kata,kata);
+//	node->key   = key;
+	node->kiri	= NULL;
+//    node->left   = NULL;
+	node->kanan	= NULL;
+//    node->right  = NULL;
+	node->headStatistik = NULL;
+	node->height= 1;
+//    node->height = 1;  // new node is initially added at leaf
+	return(node);
 }
  
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
-struct Node *rightRotate(struct Node *y)
+NodeTree *rightRotate(NodeTree *y)
 {
-    struct Node *x = y->left;
-    struct Node *T2 = x->right;
+    NodeTree *x = y->kiri;
+    NodeTree *T2 = x->kanan;
  
     // Perform rotation
-    x->right = y;
-    y->left = T2;
+    x->kanan	= y;
+//    x->right = y;
+	y->kiri		= T2;
+//    y->left = T2;
  
     // Update heights
-    y->height = max(height(y->left), height(y->right))+1;
-    x->height = max(height(x->left), height(x->right))+1;
+    y->height	= max(height(y->kiri), height(y->kanan))+1;
+//    y->height = max(height(y->left), height(y->right))+1;
+    x->height	= max(height(x->kiri), height(x->kanan))+1;
+//    x->height = max(height(x->left), height(x->right))+1;
  
     // Return new root
     return x;
@@ -62,77 +65,83 @@ struct Node *rightRotate(struct Node *y)
  
 // A utility function to left rotate subtree rooted with x
 // See the diagram given above.
-struct Node *leftRotate(struct Node *x)
+NodeTree *leftRotate(NodeTree *x)
 {
-    struct Node *y = x->right;
-    struct Node *T2 = y->left;
+    NodeTree *y = x->kanan;
+    NodeTree *T2 = y->kiri;
  
     // Perform rotation
-    y->left = x;
-    x->right = T2;
+    y->kiri	 = x;
+//    y->left = x;
+	x->kanan = T2;
+//    x->right = T2;
  
     //  Update heights
-    x->height = max(height(x->left), height(x->right))+1;
-    y->height = max(height(y->left), height(y->right))+1;
+    x->height = max(height(x->kiri), height(x->kanan))+1;
+//    x->height = max(height(x->left), height(x->right))+1;
+    y->height = max(height(y->kiri), height(y->kanan))+1;
+//    y->height = max(height(y->left), height(y->right))+1;
  
     // Return new root
     return y;
 }
  
 // Get Balance factor of node N
-int getBalance(struct Node *N)
+int getBalance(NodeTree *N)
 {
-    if (N == NULL)
+    if (N == NULL){
         return 0;
-    return height(N->left) - height(N->right);
+    }else{
+    	return height(N->kiri) - height(N->kanan);
+    }
 }
  
 // Recursive function to insert a key in the subtree rooted
 // with node and returns the new root of the subtree.
-struct Node* insert(struct Node* node, int key)
+NodeTree* insert(NodeTree* node, char* kata)
 {
     /* 1.  Perform the normal BST insertion */
-    if (node == NULL)
-        return(newNode(key));
+    if (node == NULL){
+        return(newNode(kata));
+    }
  
-    if (key < node->key)
-        node->left  = insert(node->left, key);
-    else if (key > node->key)
-        node->right = insert(node->right, key);
-    else // Equal keys are not allowed in BST
+    if (strcmp(kata,node->kata)<0){
+        node->kiri  = insert(node->kiri, kata);
+    }else if (strcmp(kata,node->kata)>0){
+        node->kanan = insert(node->kanan, kata);
+    }else{ // Equal keys are not allowed in BST
         return node;
- 
+	}
     /* 2. Update height of this ancestor node */
-    node->height = 1 + max(height(node->left),
-                           height(node->right));
- 
+    node->height = 1 + max(height(node->kiri),height(node->kanan));
     /* 3. Get the balance factor of this ancestor
           node to check whether this node became
           unbalanced */
     int balance = getBalance(node);
- 
     // If this node becomes unbalanced, then
     // there are 4 cases
  
     // Left Left Case
-    if (balance > 1 && key < node->left->key)
+    if (balance > 1 && strcmp(kata,node->kiri->kata)<0){
         return rightRotate(node);
+    }
  
     // Right Right Case
-    if (balance < -1 && key > node->right->key)
+    if (balance < -1 && strcmp(kata,node->kanan->kata)>0){
         return leftRotate(node);
+    }
  
     // Left Right Case
-    if (balance > 1 && key > node->left->key)
+    if (balance > 1 && strcmp(kata,node->kiri->kata)>0)
     {
-        node->left =  leftRotate(node->left);
+        node->kiri =  leftRotate(node->kiri);
         return rightRotate(node);
     }
  
     // Right Left Case
-    if (balance < -1 && key < node->right->key)
+    if (balance < -1 && strcmp(kata,node->kanan->kata)<0)
     {
-        node->right = rightRotate(node->right);
+        node->kanan = rightRotate(node->kanan);
         return leftRotate(node);
     }
  
@@ -143,40 +152,12 @@ struct Node* insert(struct Node* node, int key)
 // A utility function to print preorder traversal
 // of the tree.
 // The function also prints height of every node
-void preOrder(struct Node *root)
+void preOrder(NodeTree *root)
 {
     if(root != NULL)
     {
-        printf("%d ", root->key);
-        preOrder(root->left);
-        preOrder(root->right);
+        printf("%s ", root->kata);
+        preOrder(root->kiri);
+        preOrder(root->kanan);
     }
-}
- 
-/* Drier program to test above function*/
-int main()
-{
-  struct Node *root = NULL;
- 
-  /* Constructing tree given in the above figure */
-  root = insert(root, 10);
-  root = insert(root, 20);
-  root = insert(root, 30);
-  root = insert(root, 40);
-  root = insert(root, 50);
-  root = insert(root, 25);
- 
-  /* The constructed AVL Tree would be
-            30
-           /  \
-         20   40
-        /  \     \
-       10  25    50
-  */
- 
-  printf("Preorder traversal of the constructed AVL"
-         " tree is \n");
-  preOrder(root);
- 
-  return 0;
 }

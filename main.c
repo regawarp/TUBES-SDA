@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "strukturdata.h"
 
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file,int urutanFile){

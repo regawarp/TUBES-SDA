@@ -1,11 +1,12 @@
 // C program to insert a node in AVL tree
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
  
 // An AVL tree node
 struct Node
 {
-    int key;
+    char *key;
     struct Node *left;
     struct Node *right;
     int height;
@@ -30,11 +31,12 @@ int max(int a, int b)
  
 /* Helper function that allocates a new node with the given key and
     NULL left and right pointers. */
-struct Node* newNode(int key)
+struct Node* newNode(char key[])
 {
     struct Node* node = (struct Node*)
                         malloc(sizeof(struct Node));
-    node->key   = key;
+    node->key = (char*)malloc(strlen(key) * sizeof(char));
+	strcpy(node->key, key);
     node->left   = NULL;
     node->right  = NULL;
     node->height = 1;  // new node is initially added at leaf
@@ -89,15 +91,15 @@ int getBalance(struct Node *N)
  
 // Recursive function to insert a key in the subtree rooted
 // with node and returns the new root of the subtree.
-struct Node* insert(struct Node* node, int key)
+struct Node* insert(struct Node* node, char key[])
 {
     /* 1.  Perform the normal BST insertion */
     if (node == NULL)
         return(newNode(key));
  
-    if (key < node->key)
+ 	if (strcmp(key, node->key) < 0)
         node->left  = insert(node->left, key);
-    else if (key > node->key)
+    else if (strcmp(key, node->key) > 0)
         node->right = insert(node->right, key);
     else // Equal keys are not allowed in BST
         return node;
@@ -147,7 +149,7 @@ void preOrder(struct Node *root)
 {
     if(root != NULL)
     {
-        printf("%d ", root->key);
+        printf("%s ", root->key);
         preOrder(root->left);
         preOrder(root->right);
     }
@@ -159,12 +161,12 @@ int main()
   struct Node *root = NULL;
  
   /* Constructing tree given in the above figure */
-  root = insert(root, 10);
-  root = insert(root, 20);
-  root = insert(root, 30);
-  root = insert(root, 40);
-  root = insert(root, 50);
-  root = insert(root, 25);
+  root = insert(root, "what");
+  root = insert(root, "super");
+  root = insert(root, "computer");
+  root = insert(root, "sing");
+  root = insert(root, "swim");
+  root = insert(root, "duck");
  
   /* The constructed AVL Tree would be
             30

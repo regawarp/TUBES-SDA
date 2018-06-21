@@ -1,22 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-typedef struct NodeTree{ // Node Tree
-	char kata[12];
-	struct NodeTree *kiri;
-	struct NodeTree *kanan;
-	struct ListStatistik *headStatistik;
-}NodeTree;
-typedef struct TreeStatistik{ // Head tree
-	struct NodeTree *root;
-}TreeStatistik;
-typedef struct NodeStatistik{ // Node List
-	int jumlah;
-	struct NodeStatistik *next;
-};
-typedef struct ListStatistik{ // Head List
-	struct NodeStatistik *head;
-}ListStatistik;
+#include "strukturdata.h"
 
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file,int urutanFile){
 	int i=0;
@@ -41,8 +25,18 @@ int main(){
 	char fileName[20];
 	FILE *fl;
 	TreeStatistik treeStatistik;
+	NodeTree *root = NULL;
 	
-	printf("Masukkan banyak yang akan dibandingkan: ");
+	root = insert(root, "10");
+  root = insert(root, "20");
+  root = insert(root, "30");
+  root = insert(root, "40");
+  root = insert(root, "50");
+  root = insert(root, "25");
+	printf("Preorder traversal of the constructed AVL tree is \n");
+  	preOrder(root);
+	
+	printf("\nMasukkan banyak yang akan dibandingkan: ");
 	scanf("%d",&jmlFile);
 	i=1;
 	while(i<jmlFile+1){

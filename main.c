@@ -6,6 +6,7 @@ typedef struct NodeTree{ // Node Tree
 	struct NodeTree *kiri;
 	struct NodeTree *kanan;
 	struct ListStatistik *headStatistik;
+	int height;
 }NodeTree;
 typedef struct TreeStatistik{ // Head tree
 	struct NodeTree *root;

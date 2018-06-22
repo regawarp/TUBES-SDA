@@ -1,7 +1,8 @@
 // C program to insert a node in AVL tree
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "strukturdata.h"
  
 // A utility function to get the height of the tree
@@ -129,6 +130,22 @@ NodeTree* insert(NodeTree* node, char* kata)
     /* return the (unchanged) node pointer */
     return node;
 }
+
+NodeTree* search(NodeTree *root, char* inword){
+	printf("inword : %s\n", inword);
+	if(root == NULL || strcmp(inword, root->kata) == 0){
+		printf("tidak ditemukan\n");
+		return root;
+	}
+	
+	if(strcmp(inword, root->kata) < 0){
+		printf("root->kiri\n");
+		return (root->kiri, inword);
+	}	
+	
+	printf("root-kanan\n");	
+	return (root->kanan, inword);
+}
  
 // A utility function to print preorder traversal
 // of the tree.
@@ -137,7 +154,7 @@ void preOrder(NodeTree *root)
 {
     if(root != NULL)
     {
-        printf("%s ", root->kata);
+        printf("%s\n", root->kata);
         preOrder(root->kiri);
         preOrder(root->kanan);
     }

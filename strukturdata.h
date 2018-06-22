@@ -19,3 +19,5 @@ typedef struct ListStatistik{ // Head List
 	struct NodeStatistik *head;
 }ListStatistik;
 
+//NodeTree *stopwordTree = NULL;
+

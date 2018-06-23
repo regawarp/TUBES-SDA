@@ -22,7 +22,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file,int urutanFile){
 
 int main(){
 	int jmlFile,i;
-	char fileName[20];
+	char fileName[30];
 	FILE *fl;
 	TreeStatistik treeStatistik;
 	NodeTree *root = NULL;
@@ -41,7 +41,7 @@ int main(){
 	i=1;
 	while(i<jmlFile+1){
 		printf("\nMasukan nama file ke-%d:",i);
-		scanf("%s",&fileName);
+		scanf(" %[^\n]",&fileName);
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
 			printf("File %d berhasil dibuka",i);

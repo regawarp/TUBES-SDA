@@ -122,11 +122,7 @@ int main(){
 	while(i<jmlFile+1){
 		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
-<<<<<<< HEAD
-//		scanf("%s",&fileName);
-=======
-		scanf(" %[^\n]",&fileName);
->>>>>>> Regawa
+//		scanf(" %[^\n]",&fileName);
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
 			printf("File %d berhasil dibuka \n",i);

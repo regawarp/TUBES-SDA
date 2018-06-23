@@ -97,7 +97,7 @@ void showMenu(){
 
 int main(){
 	int jmlFile,i;
-	char fileName[20];
+	char fileName[30];
 	FILE *fl;
 	TreeStatistik treeStatistik;
 //	NodeTree *root = NULL;
@@ -125,6 +125,7 @@ int main(){
 <<<<<<< HEAD
 //		scanf("%s",&fileName);
 =======
+		scanf(" %[^\n]",&fileName);
 >>>>>>> Regawa
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){

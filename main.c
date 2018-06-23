@@ -35,12 +35,12 @@ Compiler		: GCC 4.9.2
 
 NodeTree *stopwordTree = NULL;
 NodeTree *root = NULL;
+NodeTree* rootSearch = NULL;
 
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
 	int i=0;
 	char karakter;
 	char kata[20];
-	NodeTree* rootSearch = NULL;
 	
 	printf("KATA YANG TERBACA : \n\n");
 	// TOKENIZING DAN CASE FOLDING
@@ -55,16 +55,16 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
 		} else if(i > 0){
 			i = 0;
 			puts(kata); // print word
-			//percobaan
-//			rootSearch = search(root, "10");
-			// yg seharusnya
 			rootSearch = search(stopwordTree, kata);
-			puts(rootSearch->kata);
+			if(rootSearch != NULL)
+				printf(">> %s adalah stopword ! << \n", kata);
+			else
+				printf(">> %s bukan stopword ! << \n", kata);
+//			puts(rootSearch->kata);	
 //			kata = rootSearch->kata;
 //			if(search(stopwordTree, kata) == false){
 //				puts(kata);	
 //			}
-			rootSearch = NULL;
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
 		}
 	}
@@ -135,5 +135,6 @@ int main(){
 		}
 		fclose(fl);
 	}
+	
 	return 0;
 }

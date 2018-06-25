@@ -60,6 +60,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
 				printf(">> %s adalah stopword ! << \n", kata);
 			else
 				printf(">> %s bukan stopword ! << \n", kata);
+				
 //			puts(rootSearch->kata);	
 //			kata = rootSearch->kata;
 //			if(search(stopwordTree, kata) == false){

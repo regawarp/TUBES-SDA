@@ -31,6 +31,7 @@ Compiler		: GCC 4.9.2
 #include <stdlib.h>
 #include <stdbool.h>
 #include "strukturdata.h"
+#include "stemmerfix/stmr.h"
 
 //#define STOPWORD_FILE stopword-en.txt
 
@@ -148,6 +149,17 @@ int main(){
 	}
 	
 	createIrregularVerbTree();
+	
+	// STEM stmr.c
+	char word[20];
+	
+	strcpy(word,"liquidity");
+	printf("\nSebelum stem: %s",word);
+	int end = stem(word, 0, strlen(word) - 1);
+
+	word[end + 1] = 0;
+
+	printf("\nSesudah stem: %s", word);
 	
 	return 0;
 }

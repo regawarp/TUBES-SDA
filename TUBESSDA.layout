@@ -3,14 +3,14 @@ Focused=0
 Order=0,1,2
 [Editor_0]
 Open=1
-Top=0
-CursorCol=43
-CursorRow=139
-TopLine=124
+Top=1
+CursorCol=16
+CursorRow=154
+TopLine=145
 LeftChar=1
 [Editor_1]
 Open=1
-Top=1
+Top=0
 <<<<<<< HEAD
 CursorCol=14
 CursorRow=134
@@ -33,3 +33,8 @@ CursorCol=1
 CursorRow=14
 TopLine=22
 LeftChar=1
+Open=0
+Top=0
+[Editor_4]
+Open=0
+Top=0

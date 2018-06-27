@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=
-UnitCount=3
+UnitCount=5
 
 [VersionInfo]
 Major=1
@@ -74,6 +74,26 @@ BuildCmd=
 FileName=strukturdata.h
 CompileCpp=0
 Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
+FileName=stemmerfix\stmr.c
+CompileCpp=0
+Folder=Project2
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit5]
+FileName=stemmerfix\stmr.h
+CompileCpp=0
+Folder=Project2
 Compile=1
 Link=1
 Priority=1000

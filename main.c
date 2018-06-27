@@ -22,7 +22,8 @@ Referensi		:
 				  > https://github.com/OleanderSoftware/OleanderStemmingLibrary
 				  
 				  IRREGULAR FORM
-				  > 
+				  > https://en.wikipedia.org/wiki/English_irregular_verbs
+				  
 Compiler		: GCC 4.9.2
 ============================================================ 	 */
 #include <stdio.h>
@@ -34,8 +35,9 @@ Compiler		: GCC 4.9.2
 //#define STOPWORD_FILE stopword-en.txt
 
 NodeTree *stopwordTree = NULL;
+NodeTree *irregularTree = NULL;
 NodeTree *root = NULL;
-NodeTree* rootSearch = NULL;
+NodeTree *rootSearch = NULL;
 
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
 	int i=0;
@@ -60,12 +62,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
 				printf(">> %s adalah stopword ! << \n", kata);
 			else
 				printf(">> %s bukan stopword ! << \n", kata);
-				
-//			puts(rootSearch->kata);	
-//			kata = rootSearch->kata;
-//			if(search(stopwordTree, kata) == false){
-//				puts(kata);	
-//			}
+
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
 		}
 	}
@@ -88,6 +85,19 @@ void createStopwordTree(){
 	}
 }
 
+void createIrregularVerbTree(){
+	FILE *infile;
+	char irregular[20];
+	infile = fopen("irregular-en.in","r"); // Read file
+	printf("|| %20s || \n", "IRREGULAR VERB LIST");
+	printf("|| %20s || \n", "irregular-en.in");
+	printf("|| %20s || \n", "");
+	while (fscanf(infile,"%s", irregular)==1){
+		printf("|| %20s || \n", irregular);
+		irregularTree = insert(irregularTree, irregular);		
+	}
+}
+
 void showMenu(){
 	printf(">>> PILIH MENU <<< \n");	
 	printf("1. Cek Plagiarisme\n");	
@@ -99,11 +109,11 @@ void showMenu(){
 int main(){
 	int jmlFile,i;
 	char fileName[30];
-	FILE *fl;
+	FILE *fl, *f2;
 	TreeStatistik treeStatistik;
 //	NodeTree *root = NULL;
 	
-	root = insert(root, "10");
+	root = insert(root, "10-10");
     root = insert(root, "20");
   	root = insert(root, "30");
   	root = insert(root, "40");
@@ -136,6 +146,8 @@ int main(){
 		}
 		fclose(fl);
 	}
+	
+	createIrregularVerbTree();
 	
 	return 0;
 }

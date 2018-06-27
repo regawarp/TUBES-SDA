@@ -4,17 +4,17 @@ Order=0,1,2
 [Editor_0]
 Open=1
 Top=0
-CursorCol=12
-CursorRow=135
-TopLine=1
+CursorCol=43
+CursorRow=139
+TopLine=124
 LeftChar=1
 [Editor_1]
 Open=1
 Top=1
 <<<<<<< HEAD
-CursorCol=36
-CursorRow=135
-TopLine=1
+CursorCol=14
+CursorRow=134
+TopLine=132
 =======
 CursorCol=28
 CursorRow=37
@@ -23,8 +23,8 @@ LeftChar=1
 [Editor_2]
 Open=1
 Top=0
-CursorCol=33
-CursorRow=22
+CursorCol=15
+CursorRow=12
 TopLine=1
 >>>>>>> 70400a8d8a2c910647e86b8420640a0afdcbfbbe
 LeftChar=1

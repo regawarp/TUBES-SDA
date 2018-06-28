@@ -188,8 +188,27 @@ void preOrder(NodeTree *root)
 {
     if(root != NULL)
     {
-        printf("%s\n", root->kata);
-        preOrder(root->kiri);
+        printf("%s ada %d\n", root->kata,root->headStatistik->jumlah);
+		preOrder(root->kiri);
         preOrder(root->kanan);
+    }
+}
+void preOrderStatistik(NodeTree *root,int jmlFile)
+{
+	int i=1;
+	NodeStatistik* temp;
+	
+    if(root != NULL)
+    {
+        printf("%s ", root->kata);
+        temp=root->headStatistik;
+        while(i<=jmlFile){
+        	printf("%d ", temp->jumlah);
+        	temp=temp->next;
+        	i++;
+        }
+        printf("\n");
+		preOrderStatistik(root->kiri,jmlFile);
+        preOrderStatistik(root->kanan, jmlFile);
     }
 }

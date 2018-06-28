@@ -18,11 +18,19 @@ int max(int a, int b)
 {
     return (a > b)? a : b;
 }
- 
+
+NodeStatistik* newNodeStat(){
+	NodeStatistik* node=(NodeStatistik*)malloc(sizeof(NodeStatistik));
+	node->jumlah=0;
+	node->next=NULL;
+	return(node);
+}
+
 /* Helper function that allocates a new node with the given key and
     NULL left and right pointers. */
-NodeTree* newNode(char* kata)
+NodeTree* newNode(char* kata, int jumlahFile,int urutan)
 {
+	NodeStatistik* temp;
     NodeTree* node = (NodeTree*)malloc(sizeof(NodeTree));
     node->kata = (char*)malloc(strlen(kata) * sizeof(char));
     
@@ -31,6 +39,21 @@ NodeTree* newNode(char* kata)
 	node->kanan	= NULL;
 	node->headStatistik = NULL;
 	node->height= 1;
+	// buat node statistik sesuai jumlah file
+	int i;
+	for(i=1;i<=jumlahFile;i++){
+		if(i==1){
+			temp=newNodeStat();
+			node->headStatistik = temp;
+		}else{
+			temp->next=newNodeStat();
+			temp=temp->next;
+		}
+		if(i==urutan){
+			temp->jumlah=1;
+		}
+	}
+	
 	return(node);
 }
  
@@ -83,18 +106,29 @@ int getBalance(NodeTree *N)
  
 // Recursive function to insert a key in the subtree rooted
 // with node and returns the new root of the subtree.
-NodeTree* insert(NodeTree* node, char* kata)
+NodeTree* insert(NodeTree* node, char* kata, int jumlahFile, int urutan)
 {
     /* 1.  Perform the normal BST insertion */
-    if (node == NULL)
-        return(newNode(kata));
+    if(node == NULL)
+        return(newNode(kata,jumlahFile,urutan));
  
-    if (strcmp(kata,node->kata) < 0)
-        node->kiri = insert(node->kiri, kata);
-    else if (strcmp(kata,node->kata) > 0)
-        node->kanan = insert(node->kanan, kata);
-    else // Equal keys are not allowed in BST
+    if(strcmp(kata,node->kata) < 0){
+        node->kiri = insert(node->kiri, kata,jumlahFile,urutan);
+    }
+    else if(strcmp(kata,node->kata) > 0){
+        node->kanan = insert(node->kanan, kata,jumlahFile,urutan);
+    }
+    else{ // Equal keys are not allowed in BST
+    	NodeStatistik* temp;
+    	int i=1;
+    	temp=node->headStatistik;
+    	while(i!=urutan){
+    		temp=temp->next;
+    		i++;
+    	}
+    	temp->jumlah+=1;
         return node;
+	}
 	
     /* 2. Update height of this ancestor node */
     node->height = 1 + max(height(node->kiri), height(node->kanan));

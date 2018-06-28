@@ -2,7 +2,7 @@ typedef struct NodeTree{ // Node Tree
 	char *kata;
 	struct NodeTree *kiri;
 	struct NodeTree *kanan;
-	struct ListStatistik *headStatistik;
+	struct NodeStatistik *headStatistik;
 	int height;
 }NodeTree;
 
@@ -15,10 +15,10 @@ typedef struct NodeStatistik{ // Node List
 	int jumlah;
 	struct NodeStatistik *next;
 }NodeStatistik;
-
-typedef struct ListStatistik{ // Head List
-	struct NodeStatistik *head;
-}ListStatistik;
+//
+//typedef struct ListStatistik{ // Head List
+//	struct NodeStatistik *head;
+//}ListStatistik;
 
 //NodeTree *stopwordTree = NULL;
 

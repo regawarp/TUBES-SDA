@@ -40,7 +40,7 @@ NodeTree *irregularTree = NULL;
 NodeTree *root = NULL;
 NodeTree *rootSearch = NULL;
 
-void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int urutanFile){
+void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int urutanFile){
 	int i=0;
 	char karakter;
 	char kata[20];
@@ -82,7 +82,7 @@ void createStopwordTree(){
 	printf("|| %20s || \n", "");
 	while (fscanf(infile,"%s", stopword)==1){
 		printf("|| %20s || \n", stopword);
-		stopwordTree = insert(stopwordTree, stopword);		
+		stopwordTree = insert(stopwordTree, stopword,1,1);		
 	}
 }
 
@@ -95,7 +95,7 @@ void createIrregularVerbTree(){
 	printf("|| %20s || \n", "");
 	while (fscanf(infile,"%s", irregular)==1){
 		printf("|| %20s || \n", irregular);
-		irregularTree = insert(irregularTree, irregular);		
+		irregularTree = insert(irregularTree, irregular,1,1);		
 	}
 }
 
@@ -114,12 +114,12 @@ int main(){
 	TreeStatistik treeStatistik;
 //	NodeTree *root = NULL;
 	
-	root = insert(root, "10-10");
-    root = insert(root, "20");
-  	root = insert(root, "30");
-  	root = insert(root, "40");
-    root = insert(root, "50");
-  	root = insert(root, "25");
+	root = insert(root, "10",1,1);
+    root = insert(root, "20",1,1);
+  	root = insert(root, "30",1,1);
+  	root = insert(root, "40",1,1);
+    root = insert(root, "50",1,1);
+  	root = insert(root, "25",1,1);
 	printf("Preorder traversal of the constructed AVL tree is \n");
   	preOrder(root);
 	
@@ -139,7 +139,7 @@ int main(){
 		if(fl != NULL){
 			printf("File %d berhasil dibuka \n",i);
 			// MakeTreeStatistik
-			MakeTreeStatistik(&treeStatistik,fl,i);
+			MakeTreeStatistik(&treeStatistik,fl,jmlFile,i);
 			i++;
 		}else{
 			printf("\n File gagal dibuka !");

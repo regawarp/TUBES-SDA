@@ -41,6 +41,29 @@ NodeTree *root = NULL;
 NodeTree *rootSearch = NULL;
 NodeTree *rootStatistik = NULL;
 
+void substr(char dest[], char source[], int pos, int length){
+	int c = 0;
+	while (c < length) {
+      dest[c] = source[pos+c];
+      c++;
+   }
+}
+
+void irregularToRegular(char *dest, NodeTree *irr){
+//	char a[] = "drunk";
+//	char b[] = "drunk-drink";
+//	irr->kata
+	char *sub;
+	
+	int i = strlen(dest);
+	substr(sub, irr->kata, 0, i);
+	printf("%s\n", dest);
+	if(strcmp(dest, sub) == 0){
+		substr(dest, irr->kata, i+1, strlen(irr->kata));
+		printf(">> SETELAH DIUBAH MENJADI REGULAR : %s\n", dest);
+	}
+}
+
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int urutanFile){
 	int i=0;
 	char karakter;
@@ -61,23 +84,30 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 			puts(kata); // print word
 			rootSearch = search(stopwordTree, kata);
 			if(rootSearch != NULL){
-				printf(">> %s adalah stopword ! << \n", kata);
+				printf("[%s IS A STOPWORD]\n", kata);
+				printf("[%s WILL BE DELETED]\n\n", kata);
 			}else{
-				printf(">> %s bukan stopword ! << \n", kata);
+				printf("[%s NOT A STOPWORD]\n", kata);
+				printf("[PROGRAM WILL CHECK IRREGULARITY OF %s WORD]\n", kata);
 				rootSearch = search(irregularTree, kata);
 				if(rootSearch != NULL){
-					printf(">> %s adalah irregular ! <<\n", kata);
-//					char subbuff[5];
-//					memcpy( subbuff, &buff[10], 4 );
-//					subbuff[4] = '\0';
+					
+					printf("[%s IS IRREGULAR FORM]\n", kata);
+					printf("[PROGRAM WILL CHANGE %s TO REGULAR FORM]\n", kata);
+					printf("[REGULAR FORM OF %s ", kata);
+					irregularToRegular(kata, rootSearch);
+					printf("is %s]\n", kata);
 				}else{
-					printf(">> %s bukan irresgular !<<\n", kata);
+					printf("[%s NOT IRREGULAR FORM]\n", kata);
+					printf("[%s WILL PROCEED TO STEMMING]\n", kata);
+					printf("[PROGRAM WILL REMOVE PREFIX AND SUFFIX FROM %s]\n", kata);
 					// Stem
-					printf("\nSebelum stem: %s",kata);
+					printf("[ROOT WORD FROM %s ", kata);
 					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
-					printf("\nSesudah stem: %s\n", kata);
+					printf("IS %s]\n", kata);
 				}
 				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
+				printf("[%s IS INSERTED TO THE STATISTIC]\n\n", kata);
 			}
 			
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong

@@ -39,6 +39,7 @@ NodeTree *stopwordTree = NULL;
 NodeTree *irregularTree = NULL;
 NodeTree *root = NULL;
 NodeTree *rootSearch = NULL;
+NodeTree *rootStatistik = NULL;
 
 void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int urutanFile){
 	int i=0;
@@ -59,11 +60,26 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 			i = 0;
 			puts(kata); // print word
 			rootSearch = search(stopwordTree, kata);
-			if(rootSearch != NULL)
+			if(rootSearch != NULL){
 				printf(">> %s adalah stopword ! << \n", kata);
-			else
+			}else{
 				printf(">> %s bukan stopword ! << \n", kata);
-
+				rootSearch = search(irregularTree, kata);
+				if(rootSearch != NULL){
+					printf(">> %s adalah irregular ! <<\n", kata);
+//					char subbuff[5];
+//					memcpy( subbuff, &buff[10], 4 );
+//					subbuff[4] = '\0';
+				}else{
+					printf(">> %s bukan irresgular !<<\n", kata);
+					// Stem
+					printf("\nSebelum stem: %s",kata);
+					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
+					printf("\nSesudah stem: %s\n", kata);
+				}
+				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
+			}
+			
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
 		}
 	}
@@ -114,32 +130,36 @@ int main(){
 	TreeStatistik treeStatistik;
 //	NodeTree *root = NULL;
 	
-	root = insert(root, "10",1,1);
-    root = insert(root, "20",1,1);
-  	root = insert(root, "30",1,1);
-  	root = insert(root, "40",1,1);
-    root = insert(root, "50",1,1);
-  	root = insert(root, "25",1,1);
-	printf("Preorder traversal of the constructed AVL tree is \n");
-  	preOrder(root);
+//	root = insert(root, "10",2,1);
+//    root = insert(root, "20",2,1);
+//  	root = insert(root, "30",2,1);
+//  	root = insert(root, "40",2,1);
+//    root = insert(root, "50",2,1);
+//  	root = insert(root, "25",2,1);
+//	printf("Preorder traversal of the constructed AVL tree is \n");
+//  	preOrder(root);
 	
 	createStopwordTree();
 	printf("Preorder traversal of the constructed AVL tree is \n");
-	preOrder(stopwordTree);
+//	preOrder(stopwordTree);
+		
+	createIrregularVerbTree();
+//	preOrder(irregularTree);
 		
 	jmlFile = 1;
 	printf("\nMasukkan banyak yang akan dibandingkan: ");
-//	scanf("%d",&jmlFile);
+	scanf("%d",&jmlFile);
 	i=1;
 	while(i<jmlFile+1){
 		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
-//		scanf(" %[^\n]",&fileName);
+		scanf(" %[^\n]",&fileName);
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
 			printf("File %d berhasil dibuka \n",i);
 			// MakeTreeStatistik
 			MakeTreeStatistik(&treeStatistik,fl,jmlFile,i);
+//			preOrder(rootStatistik);
 			i++;
 		}else{
 			printf("\n File gagal dibuka !");
@@ -147,19 +167,18 @@ int main(){
 		}
 		fclose(fl);
 	}
-	
-	createIrregularVerbTree();
+	preOrderStatistik(rootStatistik,jmlFile);
 	
 	// STEM stmr.c
-	char word[20];
-	
-	strcpy(word,"liquidity");
-	printf("\nSebelum stem: %s",word);
-	int end = stem(word, 0, strlen(word) - 1);
-
-	word[end + 1] = 0;
-
-	printf("\nSesudah stem: %s", word);
+//	char word[20];
+//	
+//	strcpy(word,"spotted");
+//	printf("\nSebelum stem: %s",word);
+//	int end = stem(word, 0, strlen(word) - 1);
+//
+//	word[end + 1] = 0;
+//
+//	printf("\nSesudah stem: %s", word);
 	
 	return 0;
 }

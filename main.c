@@ -181,7 +181,7 @@ int main(){
 	scanf("%d",&jmlFile);
 	i=1;
 	while(i<jmlFile+1){
-		strcpy(fileName, "Doc4.txt");
+//		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
 		scanf(" %[^\n]",&fileName);
 		fl = fopen(fileName,"r"); // Read file
@@ -197,6 +197,14 @@ int main(){
 		}
 		fclose(fl);
 	}
+	
+//	i=0;
+//	printf("||%15s||%10s", "STATISTIK KATA", "JUMLAH")
+//	printf("||%15s", "KATA");
+//	while(i++ < jmlFile){
+//		printf("||FILE %d", "")		
+//	}
+	
 	preOrderStatistik(rootStatistik,jmlFile);
 	
 	// STEM stmr.c

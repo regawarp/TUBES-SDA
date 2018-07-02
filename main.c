@@ -198,12 +198,13 @@ int main(){
 		fclose(fl);
 	}
 	
-//	i=0;
-//	printf("||%15s||%10s", "STATISTIK KATA", "JUMLAH")
-//	printf("||%15s", "KATA");
-//	while(i++ < jmlFile){
-//		printf("||FILE %d", "")		
-//	}
+	i=0;
+	printf("||%15s||%10s||\n", "STATISTIK KATA", "JUMLAH");
+	printf("||%15s||", "KATA");
+	while(i++ < jmlFile){
+		printf("FILE %d||", i);		
+	}
+	printf("\n");
 	
 	preOrderStatistik(rootStatistik,jmlFile);
 	

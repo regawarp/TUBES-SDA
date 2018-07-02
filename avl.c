@@ -193,17 +193,19 @@ void preOrder(NodeTree *root)
         preOrder(root->kanan);
     }
 }
-void preOrderStatistik(NodeTree *root,int jmlFile)
+
+void preOrderStatistik(NodeTree *root, 	int jmlFile)
 {
 	int i=1;
 	NodeStatistik* temp;
 	
     if(root != NULL)
     {
-        printf("%s ", root->kata);
+        printf("||%15s||", root->kata);
         temp=root->headStatistik;
         while(i<=jmlFile){
-        	printf("%d ", temp->jumlah);
+        	printf("%6d||", temp->jumlah);
+//        	totalWord += 
         	temp=temp->next;
         	i++;
         }

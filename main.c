@@ -158,17 +158,7 @@ int main(){
 	char fileName[30];
 	FILE *fl, *f2;
 	TreeStatistik treeStatistik;
-//	NodeTree *root = NULL;
-	
-//	root = insert(root, "10",2,1);
-//    root = insert(root, "20",2,1);
-//  	root = insert(root, "30",2,1);
-//  	root = insert(root, "40",2,1);
-//    root = insert(root, "50",2,1);
-//  	root = insert(root, "25",2,1);
-//	printf("Preorder traversal of the constructed AVL tree is \n");
-//  	preOrder(root);
-	
+
 	createStopwordTree();
 	printf("Preorder traversal of the constructed AVL tree is \n");
 //	preOrder(stopwordTree);
@@ -180,6 +170,7 @@ int main(){
 	printf("\nMasukkan banyak yang akan dibandingkan: ");
 	scanf("%d",&jmlFile);
 	i=1;
+	
 	while(i<jmlFile+1){
 //		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
@@ -199,25 +190,25 @@ int main(){
 	}
 	
 	i=0;
-	printf("||%15s||%10s||\n", "STATISTIK KATA", "JUMLAH");
+	printf("||%14s||%10s||\n", "STATISTIK KATA", "JUMLAH");
 	printf("||%15s||", "KATA");
 	while(i++ < jmlFile){
 		printf("FILE %d||", i);		
 	}
 	printf("\n");
 	
-	preOrderStatistik(rootStatistik,jmlFile);
+//	>>>>
+//	VERSI PERTAMA
+//	NodePersentase persentase;
+//	persentase.totalSameWord = 0;
+//	persentase.totalWord = 0; 
+
+//	VERSI KEDUA
+	NodePersentase *persentase = newNodePersentase();
+	preOrderStatistik(rootStatistik, jmlFile, &persentase);
+//	<<<<<
 	
-	// STEM stmr.c
-//	char word[20];
-//	
-//	strcpy(word,"spotted");
-//	printf("\nSebelum stem: %s",word);
-//	int end = stem(word, 0, strlen(word) - 1);
-//
-//	word[end + 1] = 0;
-//
-//	printf("\nSesudah stem: %s", word);
+	
 	
 	return 0;
 }

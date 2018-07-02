@@ -26,6 +26,13 @@ NodeStatistik* newNodeStat(){
 	return(node);
 }
 
+NodePersentase* newNodePersentase(){
+	NodePersentase* node=(NodePersentase*)malloc(sizeof(NodePersentase));
+	node->totalSameWord=0;
+	node->totalWord=0;
+	return(node);
+}
+
 /* Helper function that allocates a new node with the given key and
     NULL left and right pointers. */
 NodeTree* newNode(char* kata, int jumlahFile,int urutan)
@@ -194,23 +201,35 @@ void preOrder(NodeTree *root)
     }
 }
 
-void preOrderStatistik(NodeTree *root, 	int jmlFile)
+void preOrderStatistik(NodeTree *root, 	int jmlFile, NodePersentase *persentase)
 {
 	int i=1;
+	int tempStat = 0;
 	NodeStatistik* temp;
 	
     if(root != NULL)
     {
         printf("||%15s||", root->kata);
         temp=root->headStatistik;
-        while(i<=jmlFile){
+        tempStat = temp->jumlah;
+		while(i<=jmlFile){
         	printf("%6d||", temp->jumlah);
-//        	totalWord += 
+//        	totalWord += temp->jumlah;
+//        	(*persentase)->totalWord += temp->jumlah;
+        	persentase->totalWord += temp->jumlah;
+        	if(tempStat > temp->jumlah){
+        		tempStat = temp->jumlah;
+			}
+        	
         	temp=temp->next;
         	i++;
         }
+//        (*persentase)->totalSameWord += tempStat;
+			persentase->totalSameWord += tempStat;
+//        totalSameWord += tempStat;
+        
         printf("\n");
-		preOrderStatistik(root->kiri,jmlFile);
-        preOrderStatistik(root->kanan, jmlFile);
+		preOrderStatistik(root->kiri, jmlFile, &persentase);
+        preOrderStatistik(root->kanan, jmlFile, &persentase);
     }
 }

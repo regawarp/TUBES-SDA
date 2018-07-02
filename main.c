@@ -71,7 +71,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 //					memcpy( subbuff, &buff[10], 4 );
 //					subbuff[4] = '\0';
 				}else{
-					printf(">> %s bukan irresgular !<<\n", kata);
+					printf(">> %s bukan irregular !<<\n", kata);
 					// Stem
 					printf("\nSebelum stem: %s",kata);
 					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
@@ -122,12 +122,12 @@ void showMenu(){
 	printf("PILIHAN ANDA : ");	
 }
 
-
 int main(){
-	int jmlFile,i;
+	int jmlFile,i,j,k=0;
 	char fileName[30];
 	FILE *fl, *f2;
 	TreeStatistik treeStatistik;
+	float persen;
 //	NodeTree *root = NULL;
 	
 //	root = insert(root, "10",2,1);
@@ -151,7 +151,7 @@ int main(){
 	scanf("%d",&jmlFile);
 	i=1;
 	while(i<jmlFile+1){
-		strcpy(fileName, "Doc4.txt");
+//		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
 		scanf(" %[^\n]",&fileName);
 		fl = fopen(fileName,"r"); // Read file
@@ -167,7 +167,34 @@ int main(){
 		}
 		fclose(fl);
 	}
-	preOrderStatistik(rootStatistik,jmlFile);
+	 
+	int totalWord = 0, wordSame = 0;
+	preOrderStatistik(rootStatistik,jmlFile,&wordSame,&totalWord);
+
+	printf("\n Total Kata : %d", totalWord);
+	printf("\n Kata Sama : %d", wordSame);	
+	
+	float persen1 = ((wordSame*2)*100/totalWord);
+	
+	printf(" Persentase : %5.f%%", persen1);
+
+	
+//	if (rootStatistik) != NULL 
+//		for (i=0;i<=jmlFile;i++){
+//		for (j=0;j<jmlFile-i; j++){
+//			persen[k] = ;
+//			k++;			
+//	}
+//}
+//
+// printf("\n\t\t Kesamaan isi file : \n");
+//	for (i=0; i<=jmlFile; i++){
+//		 for (j=i+1; j<=jmlFile; j++){
+//			printf("\n\t\t   File %d and %d : %.2f %%\n", i+1, j+1, persen[k]);
+//			k++;
+//		}
+//	}
+//	printf("\n");
 	
 	// STEM stmr.c
 //	char word[20];

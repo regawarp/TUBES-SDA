@@ -193,10 +193,14 @@ void preOrder(NodeTree *root)
         preOrder(root->kanan);
     }
 }
-void preOrderStatistik(NodeTree *root,int jmlFile)
+
+void preOrderStatistik(NodeTree *root,int jmlFile, int *wordSame, int *totalWord)
 {
-	int i=1;
+	int i=1,j, k =0;
 	NodeStatistik* temp;
+	int totalPerWord = 0;
+	int tempStat[jmlFile];
+	int min = 0;
 	
     if(root != NULL)
     {
@@ -204,11 +208,51 @@ void preOrderStatistik(NodeTree *root,int jmlFile)
         temp=root->headStatistik;
         while(i<=jmlFile){
         	printf("%d ", temp->jumlah);
+        	totalPerWord += temp->jumlah;
+        	*totalWord += temp->jumlah;
+        	
+			if(temp->jumlah != 0 ){
+				tempStat[k] = temp->jumlah;
+				k++;
+			}
+//        	printf("%d ", totalPerWord);
         	temp=temp->next;
         	i++;
         }
+        
+        if(k > 1){
+        	for (i=0;i< k;i++){
+				for (j=i+1;j<k; j++){
+					if(tempStat[i] <= tempStat[j]){
+					min = tempStat[i];
+				}else{
+					min = tempStat[i+1];
+				}
+				}
+			}
+					
+//			min = min * jmlFile;	
+			*wordSame += min;	
+		}
+		
+        
+		
+        
         printf("\n");
-		preOrderStatistik(root->kiri,jmlFile);
-        preOrderStatistik(root->kanan, jmlFile);
+		preOrderStatistik(root->kiri,jmlFile, &(*wordSame), &(*totalWord));
+        preOrderStatistik(root->kanan, jmlFile,&(*wordSame), &(*totalWord));
     }
 }
+
+//HitungJumlah (int totalWord){
+//	
+//	int total += totalWord;
+//	printf("%d", total);
+//}
+
+
+
+
+
+
+

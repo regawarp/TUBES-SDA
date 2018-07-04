@@ -114,6 +114,39 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
 		}
 	}
+	if(i>0){
+		i = 0;
+			puts(kata); // print word
+			rootSearch = search(stopwordTree, kata);
+			if(rootSearch != NULL){
+				printf("[%s IS A STOPWORD]\n", kata);
+				printf("[%s WILL BE DELETED]\n\n", kata);
+			}else{
+				printf("[%s NOT A STOPWORD]\n", kata);
+				printf("[PROGRAM WILL CHECK IRREGULARITY OF %s WORD]\n", kata);
+				rootSearch = search(irregularTree, kata);
+				if(rootSearch != NULL){
+					
+					printf("[%s IS IRREGULAR FORM]\n", kata);
+					printf("[PROGRAM WILL CHANGE %s TO REGULAR FORM]\n", kata);
+					printf("[REGULAR FORM OF %s ", kata);
+					irregularToRegular(kata, rootSearch);
+					printf("is %s]\n", kata);
+				}else{
+					printf("[%s NOT IRREGULAR FORM]\n", kata);
+					printf("[%s WILL PROCEED TO STEMMING]\n", kata);
+					printf("[PROGRAM WILL REMOVE PREFIX AND SUFFIX FROM %s]\n", kata);
+					// Stem
+					printf("[ROOT WORD FROM %s ", kata);
+					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
+					printf("IS %s]\n", kata);
+				}
+				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
+				printf("[%s IS INSERTED TO THE STATISTIC]\n\n", kata);
+			}
+			
+			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
+	}
 }
 
 void stopwordRemoval(char *kata){

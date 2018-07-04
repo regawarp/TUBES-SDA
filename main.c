@@ -242,20 +242,22 @@ int main(){
 		rootFileName = rootFileName->next;
 	}
 	printf("\n");
-//	preOrderStatistik(rootStatistik, jmlFile);
+	preOrderStatistik(rootStatistik, jmlFile);
 	
 //	>>>>
 //	VERSI PERTAMA
 	NodePersentase *persentase = NULL;
 //	VERSI KEDUA
+	printf("||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
 	for(i=1;i<=jmlFile;i++){
 		for(j=i+1;j<=jmlFile;j++){
 			persentase = newNodePersentase(i,j);
 			preOrderPresentase(rootStatistik, jmlFile, persentase);
-			printf("||%32s||\n", "PERSENTASE PLAGIARISME");
-			printf("||%32s||\n", "ANTARA : \n");
-			printf("||FILE %d DAN FILE %d adalah : ", i,j);
+//			printf("||%32s||\n", "ANTARA : \n");
+			printf("||FILE %d DAN FILE %d : %9s", i, j, "");
+//			printf("||%10s %10s||", )
 			printf("%.02f||\n",100*persentase->totalSameWord/persentase->totalWord);
+			
 		}
 	}
 //	<<<<<

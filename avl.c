@@ -280,7 +280,7 @@ void preOrderFileStatistik(NodeTree *root, int jmlFile,FILE *outfile)
         fprintf(outfile,"||%15s||", root->kata);
         temp=root->headStatistik;
 		while(i<=jmlFile){
-        	fprintf(outfile,"%9d||", temp->jumlah);
+        	fprintf(outfile,"%18d||", temp->jumlah);
         	
         	temp=temp->next;
         	i++;

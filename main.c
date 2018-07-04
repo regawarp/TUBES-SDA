@@ -139,10 +139,6 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 	}
 }
 
-void stopwordRemoval(char *kata){
-	
-}
-
 void createStopwordTree(){
 	FILE *infile;
 	char stopword[20];
@@ -169,82 +165,130 @@ void createIrregularVerbTree(){
 	}
 }
 
-void showMenu(){
-	printf(">>> PILIH MENU <<< \n");	
-	printf("1. Cek Plagiarisme\n");	
-	printf("2. Keluar\n");	
-	printf("PILIHAN ANDA : ");	
+void showInputDataMenu(){
+	printf("||%40s||\n", "PILIH PROSES INPUT DATA : ");
+	printf("||%40s||\n", "");
+	printf("||%40s||\n", "1. OTOMATIS VIA FILE");
+	printf("||%40s||\n", "2. MANUAL VIA CONSOLE");
+	printf("||%40s||\n", "3. PETUNJUK OTOMATIS VIA FILE");
 }
 
+void showMainMenu(){
+	printf("||%40s||\n", "MAIN MENU : ");
+	printf("||%40s||\n", "");
+	printf("||%40s||\n", "1. DETEKSI PLAGIARISME");
+	printf("||%40s||\n", "2. KELUAR");
+}
+
+void showCredit(){
+	printf("||%40s||\n", "PENDETEKSI PLAGIARISME");
+	printf("||%40s||\n", "MADE WITH <3 BY : ");
+	printf("||%40s||\n", "Ahmad Aji Naufal Ali (171524002)");
+	printf("||%40s||\n", "Melina Pratiwi (171524017)");
+	printf("||%40s||\n", "Regawa Rama Prayoga (17154026)");
+	printf("||%40s||\n", "");
+	printf("||%40s||\n", "");
+	printf("||%40s||\n", "");
+}
+
+char choose(){
+	int ch;
+	printf("PILIHAN ANDA : ");
+	scanf("%d", &ch);
+	printf("\n");
+	return ch;	
+}
 
 int main(){
 	int jmlFile,i,j;
-	char fileName[30];
+	char fileName[30], fileOutName[30];
 	FILE *fl, *f2;
 	FILE *infile;
 	TreeStatistik treeStatistik;
 	NodeNamaFile *rootFileName = NULL;
 	
-	printf("||%40s||\n", "PENDETEKSI PLAGIARISME");
-	printf("||%40s||\n", "MADE BY : ");
-	printf("||%40s||\n", "Ahmad Aji Naufal Ali (171524002)");
-	printf("||%40s||\n", "Melina Pratiwi (171524017)");
-	printf("||%40s||\n", "Regawa Rama Prayoga (17154026)");
-	printf("||%40s||\n", "");
-	printf("||%40s||\n", "MENU : ");
-	printf("||%40s||\n", "1. DETEKSI PLAGIARISME");
-	printf("||%40s||\n", "2. KELUAR");
+	//TAMPILAN MENU
+	int ch;
+	showCredit();
+	do{
+		showMainMenu();
+		ch = choose();
+	}while(ch < 1 && ch > 2);
 	
-	printf("||%40s||\n", "1. MANUAL VIA CONSOLE");
-	printf("||%40s||\n", "2. OTOMATIS VIA FILE");
+	if(ch > 1){
+		return 0;
+	}else{
+		do{
+			showInputDataMenu();
+			ch = choose();			
+		}while(ch < 1 && ch > 3);
+	}
 	
-	
-	
-	
-	infile = fopen("TESTCASE.txt", "r");
 	createStopwordTree();
-	printf("Preorder traversal of the constructed AVL tree is \n");
-		
 	createIrregularVerbTree();
-		
-	jmlFile = 1;
-	printf("\nMasukkan banyak yang akan dibandingkan: ");
-	fscanf(infile, "%d",&jmlFile);
-	i=1;
 	
-	while(i<jmlFile+1){
-		printf("\nMasukan nama file ke-%d:",i);
-		fscanf(infile, " %[^\n]s",&fileName);
+	//membaca jumlah file	
+	jmlFile = 1;
+	if(ch == 1){
+		infile = fopen("TESTCASE.txt", "r");
+		fscanf(infile, " %d", &jmlFile);
+	}else{
+		printf("INPUT JUMLAH FILE YANG AKAN DIBANDINGKAN : ");
+		scanf("%d", &jmlFile);
+		printf("\n");
+	}
+	printf("[PROGRAM AKAN MEMBANDINGKAN : %d FILE]\n", jmlFile);
+	
+	//membaca nama tiap-tiap file
+	i = 1;
+	while(i < jmlFile+1){
+		if(ch == 1){
+			fscanf(infile, " %[^\n]s",&fileName);
+		}else{
+			printf("INPUT NAMA FILE KE-%d :", i);
+			scanf(" %[^\n]s",&fileName);
+			printf("\n");
+		}
 		insertNamaFile(&rootFileName, fileName);
 		
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
-			printf("File %d berhasil dibuka \n",i);
-			// MakeTreeStatistik
+			printf("[FILE KE-%d BERHASIL DIBUKA]", i);
+			printf("\n");
+			
+			//membuat tree statistik
 			MakeTreeStatistik(&treeStatistik,fl,jmlFile,i);
 			i++;
 		}else{
-			printf("\n File gagal dibuka !");
+			printf("[FILA GAGAL DIBUKA !]\n");
 			getch();
 		}
 		fclose(fl);
 	}
 	
-	FILE *outfile;	
-	outfile = fopen("OUTPUT.txt","w");
+	//output file
+	if(ch == 1){
+		fscanf(infile, " %[^\n]s",&fileName);
+	}else{
+		printf("INPUT/BUAT NAMA FILE OUTPUT : ");
+		scanf(" %[^\n]s",&fileName);
+		printf("\n");
+	}
 	
-	i=0;
+	FILE *outfile;	
+	outfile = fopen(fileName,"w");
 	//console
 	printf("||%14s||%15s||\n", "STATISTIK KATA", "JUMLAH");
 	printf("||%15s||", "KATA");
 	//file
 	fprintf(outfile, "||%15s||", "KATA");
 	
+	i = 0;
 	while(i++ < jmlFile){
 		//console
 		printf("%8s%2d||","FILE ",  i);		
 		//file
-		fprintf(outfile, "%18s%2d||","FILE ",  i);		
+		fprintf(outfile, "%16s%2d||","FILE ",  i);		
 	}
 	// console
 	printf("\n||%15s||", "");
@@ -255,7 +299,7 @@ int main(){
 		//console
 		printf("%10s||",rootFileName->fileName);
 		//file
-		fprintf(outfile, "%20s||",rootFileName->fileName);
+		fprintf(outfile, "%18s||",rootFileName->fileName);
 		rootFileName = rootFileName->next;
 	}
 	printf("\n\n");
@@ -265,7 +309,9 @@ int main(){
 
 	// PERSENTASE PLAGIARISME
 	NodePersentase *persentase = NULL;
+	//console
 	printf("||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
+	//file
 	fprintf(outfile, "||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
 	for(i=1;i<=jmlFile;i++){
 		for(j=i+1;j<=jmlFile;j++){
@@ -284,5 +330,14 @@ int main(){
 			}
 		}
 	}
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+	printf("TERIMA KASIH TELAH MENGGUNAKAN APP INI \n");
+	printf("SILAKAN LIHAT STATISTIK DAN PERSENTASE PLAGIARISME PADA FILE %s \n", fileName);
+	printf("ATAU SCROLL TAMPILAN INI KE ATAS AGAR DAPAT MELIHAT BAGAIMANA PROGRAM INI BEKERJA\n");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 	return 0;
 }

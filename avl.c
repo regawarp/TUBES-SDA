@@ -206,16 +206,33 @@ NodeTree* insert(NodeTree* node, char* kata, int jumlahFile, int urutan)
 }
 
 NodeTree* search(NodeTree *root, char *inword){
-//	printf("inword : %s\n", inword);
 	if(root == NULL || strcmp(inword, root->kata) == 0){
 		return root;
 	}
 	
 	if(strcmp(inword, root->kata) < 0){
 		return search(root->kiri, inword);
-	}	
-	
+	}
+		
 	return search(root->kanan, inword);
+}
+
+NodeTree* searchIrr(NodeTree *root, char *inword){
+	char *sub;
+	sub = (char*)malloc(strlen(inword) * sizeof(char));
+	if(root != NULL)
+		substr(sub, root->kata, 0, strlen(inword));
+	
+	if(root == NULL || strcmp(inword, sub) == 0){
+		if(root != NULL)
+			substr(sub, root->kata, strlen(inword)+1, strlen(root->kata));
+		return root;
+	}
+	
+	if(strcmp(inword, sub) < 0)
+		return searchIrr(root->kiri, inword);
+	
+	return searchIrr(root->kanan, inword);
 }
  
 // A utility function to print preorder traversal

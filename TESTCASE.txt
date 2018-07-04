@@ -1,9 +1,4 @@
-4
+1
+tes-irregular.txt
 
-uji-kosong1.txt
 
-uji-kosong2.txt
-
-colvseng-washington.txt
- 
-colvseng-nytimes.txt

@@ -50,13 +50,10 @@ void substr(char dest[], char source[], int pos, int length){
 
 void irregularToRegular(char *dest, NodeTree *irr){
 	char *sub;
-	
 	int i = strlen(dest);
 	substr(sub, irr->kata, 0, i);
-	printf("%s\n", dest);
 	if(strcmp(dest, sub) == 0){
 		substr(dest, irr->kata, i+1, strlen(irr->kata));
-		printf(">> SETELAH DIUBAH MENJADI REGULAR : %s\n", dest);
 	}
 }
 
@@ -85,9 +82,8 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 			}else{
 				printf("[%s NOT A STOPWORD]\n", kata);
 				printf("[PROGRAM WILL CHECK IRREGULARITY OF %s WORD]\n", kata);
-				rootSearch =(NodeTree*) search(irregularTree, kata);
+				rootSearch =(NodeTree*) searchIrr(irregularTree, kata);
 				if(rootSearch != NULL){
-					
 					printf("[%s IS IRREGULAR FORM]\n", kata);
 					printf("[PROGRAM WILL CHANGE %s TO REGULAR FORM]\n", kata);
 					printf("[REGULAR FORM OF %s ", kata);
@@ -188,6 +184,22 @@ int main(){
 	FILE *infile;
 	TreeStatistik treeStatistik;
 	NodeNamaFile *rootFileName = NULL;
+	
+	printf("||%40s||\n", "PENDETEKSI PLAGIARISME");
+	printf("||%40s||\n", "MADE BY : ");
+	printf("||%40s||\n", "Ahmad Aji Naufal Ali (171524002)");
+	printf("||%40s||\n", "Melina Pratiwi (171524017)");
+	printf("||%40s||\n", "Regawa Rama Prayoga (17154026)");
+	printf("||%40s||\n", "");
+	printf("||%40s||\n", "MENU : ");
+	printf("||%40s||\n", "1. DETEKSI PLAGIARISME");
+	printf("||%40s||\n", "2. KELUAR");
+	
+	printf("||%40s||\n", "1. MANUAL VIA CONSOLE");
+	printf("||%40s||\n", "2. OTOMATIS VIA FILE");
+	
+	
+	
 	
 	infile = fopen("TESTCASE.txt", "r");
 	createStopwordTree();

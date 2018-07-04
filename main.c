@@ -179,8 +179,8 @@ int main(){
 //		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
 		fscanf(infile, " %[^\n]s",&fileName);
-		insertNamaFile(rootFileName, fileName);
-		printf("[rootFileName->fileName : %s]\n", rootFileName->fileName);
+		insertNamaFile(&rootFileName, fileName);
+//		printf("[rootFileName->fileName : %s]\n", rootFileName->fileName);
 		
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){

@@ -37,19 +37,24 @@ NodeNamaFile* newNodeNamaFile(char* inName){
 
 void insertNamaFile(NodeNamaFile** node, char* inName){
 	printf("[inName : %s]\n", inName);
-    if(node == NULL){
-//    	*(node) = newNodeNamaFile(inName);
-//        (newNodeNamaFile(inName));
-        *(node) = newNodeNamaFile(inName);
+    if(*node == NULL){
+        *node = newNodeNamaFile(inName);
+        return;
 	}else{
-//		NodeNamaFile* temp = node;
-		while(*(node->next) != NULL){
-			*(node) = node->next;
+		NodeNamaFile *trv = *node;
+		while(trv->next != NULL){
+//			node = node->next;
+			trv = trv->next;
 		}
-//		printf("[temp->fileName : %s]\n", temp->fileName);	
-		*(node)->next = newNodeNamaFile(inName);
+		trv->next = newNodeNamaFile(inName);
+		return;
 	}
-//    return node;
+//	else{
+//		while(*node->next != NULL){
+//			*node = *node->next;
+//		}
+//		*node->next = newNodeNamaFile(inName);
+//	}
 }
 
 

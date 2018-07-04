@@ -208,16 +208,13 @@ NodeTree* insert(NodeTree* node, char* kata, int jumlahFile, int urutan)
 NodeTree* search(NodeTree *root, char *inword){
 //	printf("inword : %s\n", inword);
 	if(root == NULL || strcmp(inword, root->kata) == 0){
-//		printf("tidak ditemukan\n");
 		return root;
 	}
 	
 	if(strcmp(inword, root->kata) < 0){
-//		printf("root->kiri\n");
 		return search(root->kiri, inword);
 	}	
 	
-//	printf("root-kanan\n");	
 	return search(root->kanan, inword);
 }
  

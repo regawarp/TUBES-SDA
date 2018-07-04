@@ -1,5 +1,9 @@
-3
+4
+
 colvseng-espn.txt
+
 colvseng-indpndt.txt
+
 colvseng-washington.txt
  
+colvseng-nytimes.txt

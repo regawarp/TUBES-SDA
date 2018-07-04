@@ -1,0 +1,10 @@
+||           KATA||             FILE  1||             FILE  2||             FILE  3||             FILE  4||
+||               ||   colvseng-espn.txt||colvseng-indpndt.txt||colvseng-washington.txt||colvseng-nytimes.txt||
+
+||PERSENTASE PLAGIARISME ANTARA   ||
+||FILE 1 DAN FILE 2 :          23.62%||
+||FILE 1 DAN FILE 3 :          27.52%||
+||FILE 1 DAN FILE 4 :          27.52%||
+||FILE 2 DAN FILE 3 :          26.94%||
+||FILE 2 DAN FILE 4 :          26.94%||
+||FILE 3 DAN FILE 4 :          100.00%||

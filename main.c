@@ -33,8 +33,6 @@ Compiler		: GCC 4.9.2
 #include "strukturdata.h"
 #include "stemmerfix/stmr.h"
 
-//#define STOPWORD_FILE stopword-en.txt
-
 NodeTree *stopwordTree = NULL;
 NodeTree *irregularTree = NULL;
 NodeTree *root = NULL;
@@ -51,9 +49,6 @@ void substr(char dest[], char source[], int pos, int length){
 }
 
 void irregularToRegular(char *dest, NodeTree *irr){
-//	char a[] = "drunk";
-//	char b[] = "drunk-drink";
-//	irr->kata
 	char *sub;
 	
 	int i = strlen(dest);
@@ -110,7 +105,6 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
 				printf("[%s IS INSERTED TO THE STATISTIC]\n\n", kata);
 			}
-			
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
 		}
 	}
@@ -175,7 +169,7 @@ void createIrregularVerbTree(){
 	printf("|| %20s || \n", "");
 	while (fscanf(infile,"%s", irregular)==1){
 		printf("|| %20s || \n", irregular);
-		irregularTree = insert(irregularTree, irregular,1,1);		
+		irregularTree = insert(irregularTree, irregular, 1, 1);		
 	}
 }
 
@@ -198,10 +192,8 @@ int main(){
 	infile = fopen("TESTCASE.txt", "r");
 	createStopwordTree();
 	printf("Preorder traversal of the constructed AVL tree is \n");
-//	preOrder(stopwordTree);
 		
 	createIrregularVerbTree();
-//	preOrder(irregularTree);
 		
 	jmlFile = 1;
 	printf("\nMasukkan banyak yang akan dibandingkan: ");
@@ -209,18 +201,15 @@ int main(){
 	i=1;
 	
 	while(i<jmlFile+1){
-//		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
 		fscanf(infile, " %[^\n]s",&fileName);
 		insertNamaFile(&rootFileName, fileName);
-//		printf("[rootFileName->fileName : %s]\n", rootFileName->fileName);
 		
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
 			printf("File %d berhasil dibuka \n",i);
 			// MakeTreeStatistik
 			MakeTreeStatistik(&treeStatistik,fl,jmlFile,i);
-//			preOrder(rootStatistik);
 			i++;
 		}else{
 			printf("\n File gagal dibuka !");
@@ -229,49 +218,53 @@ int main(){
 		fclose(fl);
 	}
 	
+	FILE *outfile;	
+	outfile = fopen("OUTPUT.txt","w");
+	
 	i=0;
+	//console
 	printf("||%14s||%15s||\n", "STATISTIK KATA", "JUMLAH");
 	printf("||%15s||", "KATA");
+	//file
+	fprintf(outfile, "||%15s||", "KATA");
+	
 	while(i++ < jmlFile){
+		//console
 		printf("%8s%2d||","FILE ",  i);		
+		//file
+		fprintf(outfile, "%18s%2d||","FILE ",  i);		
 	}
+	// console
 	printf("\n||%15s||", "");
+	// file
+	fprintf(outfile, "\n||%15s||", "");
 	i=0;
 	while(i++ < jmlFile){
+		//console
 		printf("%10s||",rootFileName->fileName);
+		//file
+		fprintf(outfile, "%20s||",rootFileName->fileName);
 		rootFileName = rootFileName->next;
 	}
-	printf("\n");
+	printf("\n\n");
+	fprintf(outfile, "\n\n");
 	preOrderStatistik(rootStatistik, jmlFile);
-	
-//	>>>>
-//	VERSI PERTAMA
+
+	// PERSENTASE PLAGIARISME
 	NodePersentase *persentase = NULL;
-//	VERSI KEDUA
 	printf("||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
+	fprintf(outfile, "||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
 	for(i=1;i<=jmlFile;i++){
 		for(j=i+1;j<=jmlFile;j++){
 			persentase = newNodePersentase(i,j);
 			preOrderPresentase(rootStatistik, jmlFile, persentase);
-//			printf("||%32s||\n", "ANTARA : \n");
+			// console
 			printf("||FILE %d DAN FILE %d : %9s", i, j, "");
-//			printf("||%10s %10s||", )
-			printf("%.02f||\n",100*persentase->totalSameWord/persentase->totalWord);
-			
+			printf("%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord);
+			// file
+			fprintf(outfile, "||FILE %d DAN FILE %d : %9s", i, j, "");
+			fprintf(outfile, "%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord);
 		}
 	}
-//	<<<<<
-	
-	
-//	>>>>
-// 	HASIL AKHIR - SEDANG DIPENDING
-//	printf("||%32s||\n", "PERSENTASE PLAGIARISME");
-//	printf("||%32s||\n", "ANTARA : ");
-//	i = 0;
-//	while(i++ < jmlFile){
-//		printf("||%d. ", i)
-//		printf("||FILE %d")
-//	}
-//	<<<<
 	return 0;
 }

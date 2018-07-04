@@ -59,10 +59,12 @@ void insertNamaFile(NodeNamaFile** node, char* inName){
 
 
 
-NodePersentase* newNodePersentase(){
+NodePersentase* newNodePersentase(int fileA, int fileB){
 	NodePersentase* node=(NodePersentase*)malloc(sizeof(NodePersentase));
 	node->totalSameWord=0;
 	node->totalWord=0;
+	node->fileA=fileA;
+	node->fileB=fileB;
 	return(node);
 }
 
@@ -232,35 +234,60 @@ void preOrder(NodeTree *root)
     }
 }
 
-void preOrderStatistik(NodeTree *root, int jmlFile, NodePersentase *persentase)
+void preOrderStatistik(NodeTree *root, int jmlFile)
 {
 	int i=1;
-	int tempStat = 0;
 	NodeStatistik* temp;
 	
     if(root != NULL)
     {
         printf("||%15s||", root->kata);
         temp=root->headStatistik;
-        tempStat = temp->jumlah;
 		while(i<=jmlFile){
         	printf("%9d||", temp->jumlah);
-//        	totalWord += temp->jumlah;
-//        	(*persentase)->totalWord += temp->jumlah;
-        	persentase->totalWord += temp->jumlah;
-        	if(tempStat > temp->jumlah){
-        		tempStat = temp->jumlah;
-			}
         	
         	temp=temp->next;
         	i++;
         }
-//        (*persentase)->totalSameWord += tempStat;
-			persentase->totalSameWord += tempStat;
-//        totalSameWord += tempStat;
         
         printf("\n");
-		preOrderStatistik(root->kiri, jmlFile, persentase);
-        preOrderStatistik(root->kanan, jmlFile, persentase);
+		preOrderStatistik(root->kiri, jmlFile);
+        preOrderStatistik(root->kanan, jmlFile);
+    }
+}
+
+void preOrderPresentase(NodeTree *root, int jmlFile, NodePersentase *persentase)
+{
+	int i=1,min=0;
+	NodeStatistik* temp;
+	
+	
+    if(root != NULL)
+    {
+    	temp=root->headStatistik;
+		while(i < persentase->fileA){
+			temp=temp->next;
+			++i;
+		}
+//        printf("||%15s||", root->kata);
+        
+        min=temp->jumlah;
+		while(i<=jmlFile){
+			if(i==persentase->fileA || i==persentase->fileB){
+//        		printf("%9d||", temp->jumlah);
+        		persentase->totalWord += temp->jumlah; // Jumlahkan Seluruh kata
+
+				if(temp->jumlah<min){
+					min=temp->jumlah;
+				}
+			}
+        	temp=temp->next;
+        	i++;
+        }
+        persentase->totalSameWord += min*2;
+        
+//        printf("\n");
+		preOrderPresentase(root->kiri, jmlFile, persentase);
+        preOrderPresentase(root->kanan, jmlFile, persentase);
     }
 }

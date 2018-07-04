@@ -16,8 +16,10 @@ typedef struct NodeStatistik{ // Node List
 }NodeStatistik;
 
 typedef struct NodePersentase{
-	unsigned long totalWord;
-	unsigned long totalSameWord;
+	double totalWord;
+	double totalSameWord;
+	int fileA;
+	int fileB;
 //	struct NodePersentase *next;
 }NodePersentase;
 

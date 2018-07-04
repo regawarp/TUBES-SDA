@@ -188,7 +188,7 @@ void showMenu(){
 
 
 int main(){
-	int jmlFile,i;
+	int jmlFile,i,j;
 	char fileName[30];
 	FILE *fl, *f2;
 	FILE *infile;
@@ -242,16 +242,22 @@ int main(){
 		rootFileName = rootFileName->next;
 	}
 	printf("\n");
+//	preOrderStatistik(rootStatistik, jmlFile);
 	
 //	>>>>
 //	VERSI PERTAMA
-//	NodePersentase persentase;
-//	persentase.totalSameWord = 0;
-//	persentase.totalWord = 0; 
-
+	NodePersentase *persentase = NULL;
 //	VERSI KEDUA
-	NodePersentase *persentase = newNodePersentase();
-	preOrderStatistik(rootStatistik, jmlFile, &persentase);
+	for(i=1;i<=jmlFile;i++){
+		for(j=i+1;j<=jmlFile;j++){
+			persentase = newNodePersentase(i,j);
+			preOrderPresentase(rootStatistik, jmlFile, persentase);
+			printf("||%32s||\n", "PERSENTASE PLAGIARISME");
+			printf("||%32s||\n", "ANTARA : \n");
+			printf("||FILE %d DAN FILE %d adalah : ", i,j);
+			printf("%.02f||\n",100*persentase->totalSameWord/persentase->totalWord);
+		}
+	}
 //	<<<<<
 	
 	

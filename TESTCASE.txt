@@ -1,5 +1,6 @@
-3
+4
 Doc1.txt
 Doc2.txt
 Doc3.in
+Doc4.txt
  

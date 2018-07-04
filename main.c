@@ -78,14 +78,14 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 		} else if(i > 0){
 			i = 0;
 			puts(kata); // print word
-			rootSearch = search(stopwordTree, kata);
+			rootSearch =(NodeTree*) search(stopwordTree, kata);
 			if(rootSearch != NULL){
 				printf("[%s IS A STOPWORD]\n", kata);
 				printf("[%s WILL BE DELETED]\n\n", kata);
 			}else{
 				printf("[%s NOT A STOPWORD]\n", kata);
 				printf("[PROGRAM WILL CHECK IRREGULARITY OF %s WORD]\n", kata);
-				rootSearch = search(irregularTree, kata);
+				rootSearch =(NodeTree*) search(irregularTree, kata);
 				if(rootSearch != NULL){
 					
 					printf("[%s IS IRREGULAR FORM]\n", kata);
@@ -102,7 +102,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
 					printf("IS %s]\n", kata);
 				}
-				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
+				rootStatistik=(NodeTree*)insert(rootStatistik,kata,jumlahFile,urutanFile);
 				printf("[%s IS INSERTED TO THE STATISTIC]\n\n", kata);
 			}
 			memset(kata, 0, sizeof(kata)); // set array word jadi null / kosong
@@ -111,14 +111,14 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 	if(i>0){
 		i = 0;
 			puts(kata); // print word
-			rootSearch = search(stopwordTree, kata);
+			rootSearch =(NodeTree*) search(stopwordTree, kata);
 			if(rootSearch != NULL){
 				printf("[%s IS A STOPWORD]\n", kata);
 				printf("[%s WILL BE DELETED]\n\n", kata);
 			}else{
 				printf("[%s NOT A STOPWORD]\n", kata);
 				printf("[PROGRAM WILL CHECK IRREGULARITY OF %s WORD]\n", kata);
-				rootSearch = search(irregularTree, kata);
+				rootSearch =(NodeTree*) search(irregularTree, kata);
 				if(rootSearch != NULL){
 					
 					printf("[%s IS IRREGULAR FORM]\n", kata);
@@ -135,7 +135,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 					kata[stem(kata, 0, strlen(kata) - 1) + 1] = '\0';
 					printf("IS %s]\n", kata);
 				}
-				rootStatistik=insert(rootStatistik,kata,jumlahFile,urutanFile);
+				rootStatistik=(NodeTree*)insert(rootStatistik,kata,jumlahFile,urutanFile);
 				printf("[%s IS INSERTED TO THE STATISTIC]\n\n", kata);
 			}
 			
@@ -156,7 +156,7 @@ void createStopwordTree(){
 	printf("|| %20s || \n", "");
 	while (fscanf(infile,"%s", stopword)==1){
 		printf("|| %20s || \n", stopword);
-		stopwordTree = insert(stopwordTree, stopword,1,1);		
+		stopwordTree =(NodeTree*) insert(stopwordTree, stopword,1,1);		
 	}
 }
 
@@ -169,7 +169,7 @@ void createIrregularVerbTree(){
 	printf("|| %20s || \n", "");
 	while (fscanf(infile,"%s", irregular)==1){
 		printf("|| %20s || \n", irregular);
-		irregularTree = insert(irregularTree, irregular, 1, 1);		
+		irregularTree =(NodeTree*) insert(irregularTree, irregular, 1, 1);		
 	}
 }
 
@@ -256,7 +256,7 @@ int main(){
 	fprintf(outfile, "||%32s||\n", "PERSENTASE PLAGIARISME ANTARA   ");
 	for(i=1;i<=jmlFile;i++){
 		for(j=i+1;j<=jmlFile;j++){
-			persentase = newNodePersentase(i,j);
+			persentase =(NodePersentase*) newNodePersentase(i,j);
 			preOrderPresentase(rootStatistik, jmlFile, persentase);
 			// console
 			printf("||FILE %d DAN FILE %d : %9s", i, j, "");

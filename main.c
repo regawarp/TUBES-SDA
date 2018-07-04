@@ -249,6 +249,7 @@ int main(){
 	printf("\n\n");
 	fprintf(outfile, "\n\n");
 	preOrderStatistik(rootStatistik, jmlFile);
+	preOrderFileStatistik(rootStatistik, jmlFile, outfile);
 
 	// PERSENTASE PLAGIARISME
 	NodePersentase *persentase = NULL;
@@ -260,10 +261,15 @@ int main(){
 			preOrderPresentase(rootStatistik, jmlFile, persentase);
 			// console
 			printf("||FILE %d DAN FILE %d : %9s", i, j, "");
-			printf("%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord);
 			// file
 			fprintf(outfile, "||FILE %d DAN FILE %d : %9s", i, j, "");
-			fprintf(outfile, "%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord);
+			if(persentase->totalWord==0){
+				printf("Kedua File Kosong\n");
+				fprintf(outfile,"Kedua File Kosong\n");
+			}else{
+				printf("%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord);
+				fprintf(outfile, "%.02f%%||\n",100*persentase->totalSameWord/persentase->totalWord); //file
+			}
 		}
 	}
 	return 0;

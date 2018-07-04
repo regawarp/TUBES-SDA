@@ -253,12 +253,33 @@ void preOrderStatistik(NodeTree *root, int jmlFile)
     }
 }
 
+void preOrderFileStatistik(NodeTree *root, int jmlFile,FILE *outfile)
+{
+	int i=1;
+	NodeStatistik* temp;
+	
+    if(root != NULL)
+    {
+        fprintf(outfile,"||%15s||", root->kata);
+        temp=root->headStatistik;
+		while(i<=jmlFile){
+        	fprintf(outfile,"%9d||", temp->jumlah);
+        	
+        	temp=temp->next;
+        	i++;
+        }
+        
+        fprintf(outfile,"\n");
+		preOrderFileStatistik(root->kiri, jmlFile, outfile);
+        preOrderFileStatistik(root->kanan, jmlFile, outfile);
+    }
+}
+
 void preOrderPresentase(NodeTree *root, int jmlFile, NodePersentase *persentase)
 {
 	int i=1,min=0;
 	NodeStatistik* temp;
-	
-	
+		
     if(root != NULL)
     {
     	temp=root->headStatistik;

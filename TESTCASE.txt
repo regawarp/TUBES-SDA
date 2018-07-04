@@ -1,8 +1,8 @@
 4
 
-colvseng-espn.txt
+uji-kosong1.txt
 
-colvseng-indpndt.txt
+uji-kosong2.txt
 
 colvseng-washington.txt
  

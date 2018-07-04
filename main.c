@@ -41,6 +41,7 @@ NodeTree *root = NULL;
 NodeTree *rootSearch = NULL;
 NodeTree *rootStatistik = NULL;
 
+
 void substr(char dest[], char source[], int pos, int length){
 	int c = 0;
 	while (c < length) {
@@ -157,8 +158,11 @@ int main(){
 	int jmlFile,i;
 	char fileName[30];
 	FILE *fl, *f2;
+	FILE *infile;
 	TreeStatistik treeStatistik;
-
+	NodeNamaFile *rootFileName = NULL;
+	
+	infile = fopen("TESTCASE.txt", "r");
 	createStopwordTree();
 	printf("Preorder traversal of the constructed AVL tree is \n");
 //	preOrder(stopwordTree);
@@ -168,13 +172,16 @@ int main(){
 		
 	jmlFile = 1;
 	printf("\nMasukkan banyak yang akan dibandingkan: ");
-	scanf("%d",&jmlFile);
+	fscanf(infile, "%d",&jmlFile);
 	i=1;
 	
 	while(i<jmlFile+1){
 //		strcpy(fileName, "Doc4.txt");
 		printf("\nMasukan nama file ke-%d:",i);
-		scanf(" %[^\n]",&fileName);
+		fscanf(infile, " %[^\n]s",&fileName);
+		insertNamaFile(rootFileName, fileName);
+		printf("[rootFileName->fileName : %s]\n", rootFileName->fileName);
+		
 		fl = fopen(fileName,"r"); // Read file
 		if(fl != NULL){
 			printf("File %d berhasil dibuka \n",i);
@@ -190,10 +197,16 @@ int main(){
 	}
 	
 	i=0;
-	printf("||%14s||%10s||\n", "STATISTIK KATA", "JUMLAH");
+	printf("||%14s||%15s||\n", "STATISTIK KATA", "JUMLAH");
 	printf("||%15s||", "KATA");
 	while(i++ < jmlFile){
-		printf("FILE %d||", i);		
+		printf("%8s%2d||","FILE ",  i);		
+	}
+	printf("\n||%15s||", "");
+	i=0;
+	while(i++ < jmlFile){
+		printf("%10s||",rootFileName->fileName);
+		rootFileName = rootFileName->next;
 	}
 	printf("\n");
 	
@@ -209,6 +222,15 @@ int main(){
 //	<<<<<
 	
 	
-	
+//	>>>>
+// 	HASIL AKHIR - SEDANG DIPENDING
+//	printf("||%32s||\n", "PERSENTASE PLAGIARISME");
+//	printf("||%32s||\n", "ANTARA : ");
+//	i = 0;
+//	while(i++ < jmlFile){
+//		printf("||%d. ", i)
+//		printf("||FILE %d")
+//	}
+//	<<<<
 	return 0;
 }

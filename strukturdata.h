@@ -18,12 +18,13 @@ typedef struct NodeStatistik{ // Node List
 typedef struct NodePersentase{
 	unsigned long totalWord;
 	unsigned long totalSameWord;
+//	struct NodePersentase *next;
 }NodePersentase;
 
 typedef struct NodeNamaFile{
-	char fileName[20];
+	char *fileName;
 	struct NodeNamaFile *next;
-};
+}NodeNamaFile;
 
 //
 //typedef struct ListStatistik{ // Head List

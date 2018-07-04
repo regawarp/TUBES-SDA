@@ -1,9 +1,7 @@
-4
-
-uji-kosong1.txt
-
-uji-kosong2.txt
-
-colvseng-washington.txt
- 
-colvseng-nytimes.txt
+6
+Uji-sim1.txt
+Uji-sim2.txt
+Uji-sim3.txt
+Uji-sim4.txt
+Uji-sim5.txt
+Uji-sim6.txt

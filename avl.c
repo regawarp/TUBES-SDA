@@ -43,18 +43,11 @@ void insertNamaFile(NodeNamaFile** node, char* inName){
 	}else{
 		NodeNamaFile *trv = *node;
 		while(trv->next != NULL){
-//			node = node->next;
 			trv = trv->next;
 		}
 		trv->next = newNodeNamaFile(inName);
 		return;
 	}
-//	else{
-//		while(*node->next != NULL){
-//			*node = *node->next;
-//		}
-//		*node->next = newNodeNamaFile(inName);
-//	}
 }
 
 
@@ -235,19 +228,6 @@ NodeTree* searchIrr(NodeTree *root, char *inword){
 	return searchIrr(root->kanan, inword);
 }
  
-// A utility function to print preorder traversal
-// of the tree.
-// The function also prints height of every node
-void preOrder(NodeTree *root)
-{
-    if(root != NULL)
-    {
-        printf("%s ada %d\n", root->kata,root->headStatistik->jumlah);
-		preOrder(root->kiri);
-        preOrder(root->kanan);
-    }
-}
-
 void preOrderStatistik(NodeTree *root, int jmlFile)
 {
 	int i=1;
@@ -304,12 +284,9 @@ void preOrderPresentase(NodeTree *root, int jmlFile, NodePersentase *persentase)
 			temp=temp->next;
 			++i;
 		}
-//        printf("||%15s||", root->kata);
-        
         min=temp->jumlah;
 		while(i<=jmlFile){
 			if(i==persentase->fileA || i==persentase->fileB){
-//        		printf("%9d||", temp->jumlah);
         		persentase->totalWord += temp->jumlah; // Jumlahkan Seluruh kata
 
 				if(temp->jumlah<min){
@@ -321,7 +298,6 @@ void preOrderPresentase(NodeTree *root, int jmlFile, NodePersentase *persentase)
         }
         persentase->totalSameWord += min*2;
         
-//        printf("\n");
 		preOrderPresentase(root->kiri, jmlFile, persentase);
         preOrderPresentase(root->kanan, jmlFile, persentase);
     }

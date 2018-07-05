@@ -1,0 +1,13 @@
+||           KATA||           FILE  1||
+||               || tes-irregular.txt||
+
+||          begin||                 2||
+||           beat||                 1||
+||          badli||                 1||
+||           -bid||                 1||
+||           bear||                 2||
+||          beget||                 1||
+||           sell||                 1||
+||            see||                 1||
+||           wors||                 1||
+||PERSENTASE PLAGIARISME ANTARA   ||

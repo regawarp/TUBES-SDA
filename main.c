@@ -50,7 +50,9 @@ void substr(char dest[], char source[], int pos, int length){
 
 void irregularToRegular(char *dest, NodeTree *irr){
 	char *sub;
-	int i = strlen(dest);
+	sub = (char*)malloc(strlen(dest) * sizeof(char));
+	int i;
+	while(irr->kata[i] != '-') i++;
 	substr(sub, irr->kata, 0, i);
 	if(strcmp(dest, sub) == 0){
 		substr(dest, irr->kata, i+1, strlen(irr->kata));
@@ -87,7 +89,7 @@ void MakeTreeStatistik(TreeStatistik *tree, FILE *file, int jumlahFile,int uruta
 					printf("[%s IS IRREGULAR FORM]\n", kata);
 					printf("[PROGRAM WILL CHANGE %s TO REGULAR FORM]\n", kata);
 					printf("[REGULAR FORM OF %s ", kata);
-					irregularToRegular(kata, rootSearch);
+					irregularToRegular(&kata, rootSearch);
 					printf("is %s]\n", kata);
 				}else{
 					printf("[%s NOT IRREGULAR FORM]\n", kata);
@@ -201,8 +203,8 @@ char choose(){
 
 int main(){
 	int jmlFile,i,j;
-	char fileName[30], fileOutName[30];
-	FILE *fl, *f2;
+	char fileName[30], fileOutName[30], karakter;
+	FILE *fl, *f2, *petunjuk;
 	FILE *infile;
 	TreeStatistik treeStatistik;
 	NodeNamaFile *rootFileName = NULL;
@@ -220,8 +222,13 @@ int main(){
 	}else{
 		do{
 			showInputDataMenu();
-			ch = choose();			
-		}while(ch < 1 && ch > 3);
+			ch = choose();
+			if(ch == 3){
+				petunjuk = fopen("Petunjuk.txt", "r");
+				while((karakter = getc(petunjuk)) != EOF)
+					printf("%c", karakter);
+			}			
+		}while(ch != 1 && ch != 2);
 	}
 	
 	createStopwordTree();

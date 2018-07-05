@@ -1,0 +1,3 @@
+STOPWORD USE
+(Reuters Web of Science™)
+https://github.com/igorbrigadir/stopwords/blob/master/en/reuters_wos.txt 

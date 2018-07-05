@@ -1,5 +1,5 @@
 ||           KATA||           FILE  1||           FILE  2||           FILE  3||           FILE  4||           FILE  5||           FILE  6||           FILE  7||           FILE  8||           FILE  9||           FILE 10||           FILE 11||           FILE 12||
-||               ||  tes-stopword.txt|| tes-irregular.txt||   uji-kosong1.txt||   uji-kosong2.txt||          Doc1.txt||          Doc2.txt||           Doc3.in||          Doc4.txt|| colvseng-espn.txt||colvseng-independent.txt||colvseng-nytimes.txt||colvseng-washington.txt||
+||               ||teks/tes-stopword.txt||teks/tes-irregular.txt||teks/uji-kosong1.txt||teks/uji-kosong2.txt||     teks/Doc1.txt||     teks/Doc2.txt||      teks/Doc3.in||     teks/Doc4.txt||teks/colvseng-espn.txt||teks/colvseng-independent.txt||teks/colvseng-nytimes.txt||teks/colvseng-washington.txt||
 
 ||     indonesian||                 0||                 0||                 0||                 0||                 1||                 2||                 1||                 1||                 0||                 0||                 0||                 0||
 ||       district||                 0||                 0||                 0||                 0||                 7||                 0||                 7||                 7||                 0||                 0||                 0||                 0||

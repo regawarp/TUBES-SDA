@@ -1,15 +1,15 @@
 12
-tes-stopword.txt
-tes-irregular.txt
-uji-kosong1.txt
-uji-kosong2.txt
-Doc1.txt
-Doc2.txt
-Doc3.in
-Doc4.txt
+teks/tes-stopword.txt
+teks/tes-irregular.txt
+teks/uji-kosong1.txt
+teks/uji-kosong2.txt
+teks/Doc1.txt
+teks/Doc2.txt
+teks/Doc3.in
+teks/Doc4.txt
 
-colvseng-espn.txt
-colvseng-independent.txt
-colvseng-nytimes.txt
-colvseng-washington.txt
+teks/colvseng-espn.txt
+teks/colvseng-independent.txt
+teks/colvseng-nytimes.txt
+teks/colvseng-washington.txt
 OUTPUT.txt

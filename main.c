@@ -293,7 +293,7 @@ int main(){
 	i = 0;
 	while(i++ < jmlFile){
 		//console
-		printf("%8s%2d||","FILE ",  i);		
+		printf("%18s%2d||","FILE ",  i);		
 		//file
 		fprintf(outfile, "%16s%2d||","FILE ",  i);		
 	}
@@ -304,7 +304,8 @@ int main(){
 	i=0;
 	while(i++ < jmlFile){
 		//console
-		printf("%10s||",rootFileName->fileName);
+		printf("||FILE KE-%d : %20s||\n", i, rootFileName->fileName);
+		printf("%18s||",rootFileName->fileName);
 		//file
 		fprintf(outfile, "%18s||",rootFileName->fileName);
 		rootFileName = rootFileName->next;
